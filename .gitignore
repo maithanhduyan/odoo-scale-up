@@ -1,3 +1,21 @@
+# odoo
+odoo.conf
+odoo/addons/
+odoo/web-data/
+odoo/log/
+
+# odoo-backup
+backup/storage/
+
+# nginx
+!nginx/conf/default.conf
+nginx/log/
+nginx/ssl/letsencrypt/
+
+# postgresql 
+pgadmin/
+postgresql/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

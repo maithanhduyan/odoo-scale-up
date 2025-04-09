@@ -1,0 +1,19 @@
+/home/odoo-scale-up/odoo/log/*.log {
+    daily
+    missingok
+    rotate 14
+    compress
+    delaycompress
+    notifempty
+    copytruncate
+}
+
+/home/odoo-scale-up/nginx/log/*.log {
+    daily
+    missingok
+    rotate 14
+    compress
+    delaycompress
+    notifempty
+    copytruncate
+}
