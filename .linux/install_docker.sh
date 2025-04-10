@@ -30,3 +30,12 @@ if command -v docker >/dev/null 2>&1; then
 else
     echo "Docker chưa được cài đặt."
 fi
+
+if command -v docker-compose >/dev/null 2>&1; then
+    echo "✅ docker-compose đã được cài đặt. Phiên bản: $(docker-compose --version)"
+else
+    echo "Cài đặt docker-compose..."
+    sudo apt install -y docker-compose
+    echo "✅ docker-compose đã được cài đặt. Phiên bản:"
+    docker-compose --version
+fi

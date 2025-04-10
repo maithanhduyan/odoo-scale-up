@@ -1,9 +1,9 @@
 {
-    "recommendations": [
-      "pkief.material-icon-theme",
-      "esbenp.prettier-vscode",
-      "vscode.json-language-features",
-      "shd101wyy.markdown-preview-enhanced"
-    ]
-  }
-  
+  "recommendations": [
+    "pkief.material-icon-theme",
+    "esbenp.prettier-vscode",
+    "vscode.json-language-features",
+    "shd101wyy.markdown-preview-enhanced",
+    "gruntfuggly.todo-tree"
+  ]
+}

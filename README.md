@@ -17,3 +17,44 @@ Các thành phần chính bao gồm:
 - **Cấu hình tối ưu:** Áp dụng các chiến lược tối ưu hoá như caching, phân chia tải và cân bằng tải động để đảm bảo hiệu suất cao cho Odoo.
 
 Với mô hình này, người dùng có thể dễ dàng triển khai, giám sát, và mở rộng hệ thống Odoo theo nhu cầu kinh doanh một cách linh hoạt và hiệu quả.
+
+```
+odoo-scale-up/
+├── LICENSE
+├── README.md
+├── certbot
+│   └── logs
+│       ├── letsencrypt.log
+├── docker-compose.yaml
+├── nginx
+│   ├── conf
+│   │   └── default.conf
+│   ├── html
+│   ├── log
+│   │   ├── access.log
+│   │   └── error.log
+│   └── ssl
+│       ├── letsencrypt
+│       ├── server-sample.crt
+│       └── server-sample.key
+├── odoo
+│   ├── addons
+│   ├── conf
+│   │   ├── odoo.conf
+│   │   └── odoo.sample.conf
+│   ├── docker
+│   │   └── v18
+│   ├── log
+│   │   └── odoo.log
+│   ├── scripts
+│   │   └── create_simple_ssl.sh
+│   ├── src
+│   └── web-data
+│       ├── addons
+│       └── sessions
+├── postgresql
+│   └── data
+│       ├── PG_VERSION
+│       └── postgresql.conf
+└── sample.env
+```
