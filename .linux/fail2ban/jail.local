@@ -1,0 +1,9 @@
+[nginx-malicious-requests]
+enabled = true
+port = http,https
+filter = nginx-malicious-requests
+logpath = /home/odoo-15/nginx/log/access.log
+maxretry = 2
+findtime = 600
+bantime = 86400
+action = iptables[name=HTTP, port=http, protocol=tcp]

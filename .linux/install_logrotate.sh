@@ -6,6 +6,8 @@ PARENT_DIR=$(dirname "$THIS_DIR")
 CONFIG_DIR="$THIS_DIR/logrotate"
 CONFIG_FILE="$CONFIG_DIR/docker"
 SYMLINK_PATH="/etc/logrotate.d/docker"
+LOGROTATE_CRON_CONFIG="/etc/cron.daily/logrotate"
+SHORTCUT_LOGROTATE_CRON_CONFIG="$THIS_DIR/logrotate"
 
 # BƯỚC 1: Tạo thư mục chứa file cấu hình nếu chưa tồn tại
 mkdir -p "$CONFIG_DIR"
@@ -53,4 +55,8 @@ if [ $? -eq 0 ]; then
 else
     echo "❌ Có lỗi trong cấu hình logrotate. Vui lòng kiểm tra lại: $CONFIG_FILE"
     exit 1
+fi
+
+if [ ! -f SHORTCUT_LOGROTATE_CRON_CONFIG ]; then
+    sudo ln -sf "$LOGROTATE_CRON_CONFIG" "$SHORTCUT_LOGROTATE_CRON_CONFIG"
 fi

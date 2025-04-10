@@ -1,0 +1,13 @@
+{
+  "name": "Odoo Container",
+  "dockerComposeFile": "../../docker-compose.yaml",
+  "workspaceFolder": "/workspace/odoo",
+  "service": "odoo",
+  "customizations": {
+    "vscode": {
+      "extensions": []
+    }
+  },
+  "shutdownAction": "stopCompose",
+  "forwardPorts": [8069, 8071, 8072]
+}
