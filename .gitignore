@@ -6,6 +6,7 @@ odoo/log/
 
 # odoo-backup
 backup/storage/
+.linux/backup/backup.conf
 
 # nginx
 !nginx/conf/default.conf
