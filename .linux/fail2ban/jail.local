@@ -7,3 +7,13 @@ maxretry = 2
 findtime = 600
 bantime = 86400
 action = iptables[name=HTTP, port=http, protocol=tcp]
+
+[sshd]
+enabled = true
+port    = ssh
+filter  = sshd
+logpath = /var/log/auth.log
+maxretry = 3
+findtime = 600
+bantime  = 600
+action   = iptables[name=SSH, port=ssh, protocol=tcp]

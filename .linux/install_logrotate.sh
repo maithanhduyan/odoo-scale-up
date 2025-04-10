@@ -1,4 +1,18 @@
 #!/bin/bash
+if command -v logrotate >/dev/null 2>&1; then
+    echo "Logrotate đã được cài đặt, phiên bản:"
+    logrotate --version
+else
+    echo "Logrotate chưa được cài đặt. Đang tiến hành cài đặt..."
+    if [ -f /etc/debian_version ]; then
+        sudo apt-get update && sudo apt-get install -y logrotate
+    elif [ -f /etc/redhat-release ]; then
+        sudo yum install -y logrotate
+    else
+        echo "Hệ điều hành không được hỗ trợ tự động cài đặt. Vui lòng cài đặt logrotate thủ công."
+        exit 1
+    fi
+fi
 
 # Đường dẫn file cấu hình logrotate tùy chỉnh
 THIS_DIR=$(dirname "$(realpath "$0")")
@@ -37,6 +51,9 @@ EOF
 
 echo "✅ Đã tạo file cấu hình logrotate tại: $CONFIG_FILE"
 
+echo "🧪 Kiểm tra cấu hình logrotate..."
+sudo logrotate -d "$CONFIG_FILE"
+
 # BƯỚC 3: Tạo symlink vào /etc/logrotate.d/ để logrotate mặc định tự động chạy
 if [ -L "$SYMLINK_PATH" ]; then
     echo "ℹ️ Symlink đã tồn tại. Cập nhật lại."
@@ -57,6 +74,6 @@ else
     exit 1
 fi
 
-if [ ! -f SHORTCUT_LOGROTATE_CRON_CONFIG ]; then
+if [ ! -f $SHORTCUT_LOGROTATE_CRON_CONFIG ]; then
     sudo ln -sf "$LOGROTATE_CRON_CONFIG" "$SHORTCUT_LOGROTATE_CRON_CONFIG"
 fi

@@ -42,3 +42,6 @@ if [ ! -f "$FAIL2BAN_LOG_SHORTCUT" ]; then
 else
   echo "✅ Xem log fail2ban tại $FAIL2BAN_LOG_SHORTCUT"
 fi
+
+sudo ln -sf "$FAIL2BAN_CONFIG_DIR" "$THIS_DIR/jail.d"
+sudo ln -sf "$FAIL2BAN_FILTER_DIR" "$THIS_DIR/filter.d"
