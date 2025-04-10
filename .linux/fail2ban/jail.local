@@ -2,7 +2,7 @@
 enabled = true
 port = http,https
 filter = nginx-malicious-requests
-logpath = /home/odoo-15/nginx/log/access.log
+logpath = /home/odoo-scale-up/nginx/log/access.log
 maxretry = 2
 findtime = 600
 bantime = 86400
