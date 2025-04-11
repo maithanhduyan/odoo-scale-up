@@ -38,3 +38,17 @@ if [ ! -f $SHORTCUT_FAIL2BAN_LOG ]; then
   # Tạo symlink để dễ xem log
   sudo ln -s "$FAIL2BAN_LOG" "$SHORTCUT_FAIL2BAN_LOG"
 fi
+# ==============================================================================
+# - **/etc/cron.d/**: Thư mục chứa các tập tin cấu hình bổ sung.
+# sudo ln -sf /etc/cron.d /home/odoo-scale-up/.linux/cron/cron.d
+
+# Các thư mục chứa script thực thi theo từng khoảng thời gian định sẵn.
+# sudo ln -sf /etc/cron.hourly /home/odoo-scale-up/.linux/cron/cron.hourly
+# sudo ln -sf /etc/cron.daily /home/odoo-scale-up/.linux/cron/cron.daily
+# sudo ln -sf /etc/cron.weekly /home/odoo-scale-up/.linux/cron/cron.weekly
+# sudo ln -sf /etc/cron.monthly /home/odoo-scale-up/.linux/cron/cron.monthly
+
+# Thư mục chứa các tệp crontab của từng người dùng.
+# sudo ln -sf /var/spool/cron /home/odoo-scale-up/.linux/cron/cron
+
+# sudo ln -sf /var/spool/cron /home/odoo-scale-up/.linux/cron/cron

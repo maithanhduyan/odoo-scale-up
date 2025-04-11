@@ -28,6 +28,7 @@ sudo chown -R $USER_UID:$USER_GID ./postgresql/data
 # Gán quyền truy cập
 sudo chmod -R 775 ./nginx/log
 sudo chmod -R 775 ./odoo
+sudo chmod -R 777 ./odoo/web-data
 sudo chmod -R 775 ./postgresql/data
 
 echo "✅ Permissions and ownership have been set successfully."
