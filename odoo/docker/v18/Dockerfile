@@ -1,5 +1,4 @@
-FROM ubuntu:noble
-MAINTAINER Odoo S.A. <info@odoo.com>
+FROM ubuntu:24.04 AS base
 
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 
@@ -14,32 +13,32 @@ ARG TARGETARCH
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get install -y --no-install-recommends \
-        ca-certificates \
-        curl \
-        dirmngr \
-        fonts-noto-cjk \
-        gnupg \
-        libssl-dev \
-        node-less \
-        npm \
-        python3-magic \
-        python3-num2words \
-        python3-odf \
-        python3-pdfminer \
-        python3-pip \
-        python3-phonenumbers \
-        python3-pyldap \
-        python3-qrcode \
-        python3-renderpm \
-        python3-setuptools \
-        python3-slugify \
-        python3-vobject \
-        python3-watchdog \
-        python3-xlrd \
-        python3-xlwt \
-        xz-utils && \
+    ca-certificates \
+    curl \
+    dirmngr \
+    fonts-noto-cjk \
+    gnupg \
+    libssl-dev \
+    node-less \
+    npm \
+    python3-magic \
+    python3-num2words \
+    python3-odf \
+    python3-pdfminer \
+    python3-pip \
+    python3-phonenumbers \
+    python3-pyldap \
+    python3-qrcode \
+    python3-renderpm \
+    python3-setuptools \
+    python3-slugify \
+    python3-vobject \
+    python3-watchdog \
+    python3-xlrd \
+    python3-xlwt \
+    xz-utils && \
     if [ -z "${TARGETARCH}" ]; then \
-        TARGETARCH="$(dpkg --print-architecture)"; \
+    TARGETARCH="$(dpkg --print-architecture)"; \
     fi; \
     WKHTMLTOPDF_ARCH=${TARGETARCH} && \
     case ${TARGETARCH} in \
@@ -69,6 +68,56 @@ RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ noble-pgdg main' > /etc/a
 # Install rtlcss (on Debian buster)
 RUN npm install -g rtlcss
 
+# ==============================================================================
+# Development stage
+FROM base AS development
+# Cài đặt các gói cần thiết cho Odoo development
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y --no-install-recommends \
+    build-essential \
+    git \
+    libjpeg-dev \
+    libldap2-dev \
+    libpq-dev \
+    libsasl2-dev \
+    libxml2-dev \
+    libxslt1-dev \
+    libzip-dev \
+    pkg-config \
+    python3-dev \
+    python3-venv \
+    python3-wheel \
+    zip \
+    unzip \
+    sudo && \
+    rm -rf /var/lib/apt/lists/*
+
+# Tạo user odoo
+RUN useradd -ms /bin/bash odoo \
+    && usermod -aG sudo odoo \
+    && echo 'vscode ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+USER odoo
+
+# Cài đặt uv bằng script và thêm vào PATH
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh && \
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc
+
+# Thiết lập thư mục làm việc
+WORKDIR /workspace/odoo
+
+# RUN apt-get install -y git
+
+# Copy entrypoint script and Odoo configuration file
+COPY ./entrypoint.sh /
+COPY ./odoo.conf /
+
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/bin/sh", "-c", "while sleep 1000; do :; done"]
+# ==============================================================================
+# Production stage
+FROM base AS production
 # Install Odoo
 ENV ODOO_VERSION 18.0
 ARG ODOO_RELEASE=20250311
@@ -101,4 +150,5 @@ COPY wait-for-psql.py /usr/local/bin/wait-for-psql.py
 USER odoo
 
 ENTRYPOINT ["/entrypoint.sh"]
+# /bin/sh -c "while sleep 1000; do :; done"
 CMD ["odoo"]

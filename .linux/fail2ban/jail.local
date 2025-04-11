@@ -25,5 +25,5 @@ filter  = sshd
 logpath = /var/log/auth.log
 maxretry = 3
 findtime = 600
-bantime  = 600
+bantime  = 1600
 action   = iptables[name=SSH, port=ssh, protocol=tcp]

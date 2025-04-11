@@ -5,7 +5,7 @@
   "service": "odoo",
   "customizations": {
     "vscode": {
-      "extensions": []
+      "extensions": ["esbenp.prettier-vscode"]
     }
   },
   "shutdownAction": "stopCompose",

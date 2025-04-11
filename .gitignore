@@ -20,6 +20,13 @@ postgresql/
 # certbot 
 certbot/
 
+# cron
+.linux/cron/cron
+*.hourly
+*.daily
+*.weekly
+*.monthly
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -195,3 +202,5 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 *.d
+
+

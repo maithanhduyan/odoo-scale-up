@@ -17,9 +17,15 @@ services:
     restart: always # run as a service
 
   odoo:
-    image: odoo:18.0
+    # image: odoo:18.0
     container_name: odoo_18
+    build:
+      context: ./odoo/docker/v18
+      dockerfile: Dockerfile
+      target: development
     volumes:
+      # Mount the root folder that contains .git
+      - ./odoo/src:/workspace:cached
       - ./odoo/addons:/mnt/extra-addons # contain odoo dev modules
       - ./odoo/conf:/etc/odoo # contain config and log
       - ./odoo/web-data:/var/lib/odoo # contain odoo web data
